@@ -1,0 +1,122 @@
+{% extends "outline/base.html" %}
+{% load static %}
+
+{% block title %}{{ data.cover.couple }} | Wedding Programme{% endblock %}
+
+{% block content %}
+<canvas id="petal-canvas"></canvas>
+
+<div class="bg-slideshow">
+    <div class="bg-slide slide-1"></div>
+    <div class="bg-slide slide-2"></div>
+</div>
+
+<!-- Hero Section -->
+<header class="hero">
+    <p class="subtitle">The Wedding Celebration of</p>
+    <h1 class="couple-names">{{ data.cover.couple }}</h1>
+    <div class="hero-divider">
+        <span class="line"></span>
+        <span class="ampersand">&</span>
+        <span class="line"></span>
+    </div>
+    <p class="date">{{ data.cover.date }}</p>
+</header>
+
+<div class="layout-grid">
+    
+    <!-- LEFT COLUMN: Ministers, Protocol & Thank You -->
+    <aside class="sidebar">
+        <div class="sidebar-section">
+            <h3 class="sidebar-title">The Wedding Party</h3>
+            <div class="person">
+                <span class="role">Maid of Honour</span>
+                <span class="name">{{ data.wedding_party.maid_of_honour }}</span>
+            </div>
+            <div class="person">
+                <span class="role">Best Man</span>
+                <span class="name">{{ data.wedding_party.best_man }}</span>
+            </div>
+            <div class="person">
+                <span class="role">Protocol</span>
+                <span class="name">{{ data.protocol|join:", " }}</span>
+            </div>
+        </div>
+
+        <div class="sidebar-section">
+            <h3 class="sidebar-title">Officiating Ministers</h3>
+            <ul class="minimal-list">
+                {% for m in data.officiating_ministers %}
+                <li>
+                    <span class="name">{{ m.name }}</span>
+                    <span class="role">{{ m.role }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="sidebar-section">
+            <h3 class="sidebar-title">Others</h3>
+            <ul class="minimal-list">
+                {% for o in data.others %}
+                <li>
+                    <span class="name">{{ o.name }}</span>
+                    <span class="role">{{ o.role }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>       
+    </aside>
+
+    <!-- RIGHT COLUMN: Order of Service, Reception, Photography -->
+    <main class="main-content">
+        
+        <section class="timeline-section">
+            <h2 class="section-heading"><span>Order of Service</span></h2>
+            <div class="timeline">
+                {% for step in data.order_of_service %}
+                <div class="timeline-item">
+                    <div class="timeline-number">{{ forloop.counter|stringformat:"02d" }}</div>
+                    <div class="timeline-content">
+                        <p>{{ step }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+       
+
+        <section class="timeline-section">
+            <h2 class="section-heading"><span>Order of Photography</span></h2>
+            <div class="photo-grid">
+                {% for group in data.photography %}
+                <div class="photo-item">
+                    <span class="check">✦</span> {{ group }}
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section class="timeline-section">
+            <h2 class="section-heading"><span>Reception</span></h2>
+            <div class="timeline">
+                {% for step in data.reception %}
+                <div class="timeline-item">
+                    <div class="timeline-number">{{ forloop.counter|stringformat:"02d" }}</div>
+                    <div class="timeline-content">
+                        <p>{{ step }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section class="thank-you">
+            <h2>Thank You</h2>
+            <p>{{ data.thank_you.message }}</p>
+            <p class="signature">{{ data.thank_you.signature }}</p>
+        </section>
+    </main>
+</div>
+{% endblock %}

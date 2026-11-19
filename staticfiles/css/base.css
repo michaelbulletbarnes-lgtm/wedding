@@ -1,0 +1,316 @@
+/* --- IMPORT FONTS --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
+
+:root {
+    --bg-dark: #1a0a0d; /* Deep dark burgundy/black */
+    --text-primary: #fcfbf9; /* Cream white for readability */
+    --text-secondary: rgba(252, 251, 249, 0.7); /* Soft translucent white */
+    --accent-red: #d65a6d; /* Bright red for headings */
+    --accent-gold: #d4af37; /* Elegant gold */
+    
+    --font-serif: 'Playfair Display', serif;
+    --font-sans: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--bg-dark);
+    /* Fallback gradient just in case images take a second to load */
+    background-image: 
+        radial-gradient(circle at 10% 10%, rgba(163, 36, 36, 0.4) 0%, transparent 60%),
+        radial-gradient(circle at 90% 90%, rgba(58, 13, 21, 0.9) 0%, transparent 60%);
+    background-attachment: fixed;
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+
+/* --- BACKGROUND SLIDESHOW --- */
+.bg-slideshow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0; /* Sits behind the canvas (which is z-index: 1) */
+    overflow: hidden;
+}
+
+.bg-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    animation: crossfade 60s infinite; 
+}
+
+/* FIXED: Added the missing ( */
+.bg-slide.slide-1 {
+    background-image: 
+        linear-gradient(rgba(26, 10, 13, 0.85), rgba(26, 10, 13, 0.85)), /* Dark Red Overlay */
+        url('/static/images/3.jpg'); 
+}
+
+.bg-slide.slide-2 {
+    background-image: 
+        linear-gradient(rgba(26, 10, 13, 0.85), rgba(26, 10, 13, 0.85)), 
+        url('/static/images/f.jpg');
+    animation-delay: 30s; 
+}
+
+/* The fading animation */
+@keyframes crossfade {
+    0% { opacity: 0; }
+    8.33% { opacity: 1; }    /* Fades IN over 5 seconds */
+    41.66% { opacity: 1; }   /* Stays fully visible for 20 seconds */
+    50% { opacity: 0; }      /* Fades OUT over 5 seconds */
+    100% { opacity: 0; }     /* Stays hidden for 30 seconds */
+}
+
+/* --- CANVAS (Petals) --- */
+#petal-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 1; 
+}
+
+/* --- CONTENT ABOVE CANVAS --- */
+.hero, .layout-grid, .site-footer {
+    position: relative;
+    z-index: 2;
+}
+
+/* --- HERO SECTION --- */
+.hero {
+    text-align: center;
+    padding: 6rem 2rem 4rem;
+}
+
+.subtitle {
+    font-family: var(--font-sans);
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    font-size: 0.75rem;
+    color: var(--accent-gold);
+    margin-bottom: 1.5rem;
+}
+
+.couple-names {
+    font-family: var(--font-serif);
+    font-size: 4.5rem;
+    font-weight: 400;
+    color: var(--text-primary);
+    margin: 0;
+    line-height: 1.1;
+    text-shadow: 0 4px 30px rgba(0,0,0,0.6);
+}
+
+.hero-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.hero-divider .line {
+    width: 80px;
+    height: 1px;
+    background: rgba(212, 175, 55, 0.5);
+}
+
+.hero-divider .ampersand {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--accent-gold);
+    font-size: 2rem;
+}
+
+.date {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    letter-spacing: 0.1em;
+    color: var(--accent-gold);
+}
+
+/* --- 2-COLUMN LAYOUT GRID --- */
+.layout-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem 8rem;
+}
+
+/* --- SIDEBAR (Left Column) --- */
+.sidebar {
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    padding-right: 3rem;
+}
+
+.sidebar-section {
+    margin-bottom: 3rem;
+}
+
+.sidebar-title {
+    font-family: var(--font-serif);
+    font-size: 1.6rem;
+    color: var(--accent-red);
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    font-style: italic;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.5rem;
+}
+
+.person { margin-bottom: 1.2rem; }
+
+.sidebar .role {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text-secondary);
+    margin-bottom: 0.3rem;
+}
+
+.sidebar .name { font-size: 1rem; font-weight: 500; color: var(--text-primary); }
+
+.minimal-list { list-style: none; padding: 0; margin: 0; }
+.minimal-list li { margin-bottom: 1.2rem; display: flex; flex-direction: column; }
+.minimal-list .name { font-size: 0.95rem; font-weight: 500; color: var(--text-primary); }
+.minimal-list .role { font-size: 0.85rem; color: var(--text-secondary); font-style: italic; margin-top: 0.1rem; }
+
+/* --- MAIN CONTENT (Right Column) --- */
+.section-heading {
+    text-align: center;
+    margin-bottom: 3rem;
+    margin-top: 1rem;
+    position: relative;
+}
+
+.section-heading span {
+    background: transparent;
+    padding: 0 1.5rem;
+    font-family: var(--font-serif);
+    font-size: 2.2rem;
+    color: var(--accent-gold);
+    position: relative;
+    z-index: 2;
+    font-style: italic;
+}
+
+.section-heading::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    z-index: 1;
+}
+
+.timeline-section { margin-bottom: 5rem; }
+
+.timeline { display: flex; flex-direction: column; gap: 1.2rem; }
+
+.timeline-item { display: flex; gap: 2rem; align-items: flex-start; }
+
+.timeline-number {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--accent-red);
+    min-width: 40px;
+    text-align: right;
+    line-height: 1.2;
+}
+
+.timeline-content {
+    border-bottom: 1px dotted rgba(255, 255, 255, 0.15);
+    padding-bottom: 1rem;
+    flex-grow: 1;
+}
+
+.timeline-content p { margin: 0; font-size: 1.05rem; color: var(--text-primary); }
+
+/* --- PHOTOGRAPHY GRID --- */
+.photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.photo-item { font-size: 1rem; color: var(--text-primary); padding: 0.5rem 0; }
+.photo-item .check { color: var(--accent-gold); margin-right: 0.5rem; font-size: 0.8rem; }
+
+/* --- THANK YOU SECTION --- */
+.thank-you {
+    background: transparent;
+    padding: 0;
+    text-align: center;
+    border-radius: 0;
+    box-shadow: none;
+    border: none;
+    margin-top: 4rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 2rem;
+}
+
+.thank-you h2 {
+    font-family: var(--font-serif);
+    font-size: 2.5rem;
+    color: var(--accent-red);
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+}
+
+.thank-you p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto 1.5rem auto;
+}
+
+.thank-you .signature {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    color: var(--accent-gold);
+    font-style: italic;
+    margin-bottom: 0;
+}
+
+/* --- FOOTER --- */
+.site-footer {
+    text-align: center;
+    padding: 3rem;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+/* --- MOBILE RESPONSIVENESS --- */
+@media (max-width: 900px) {
+    .layout-grid { 
+        grid-template-columns: 1fr; 
+        gap: 3rem; 
+        padding: 0 1.5rem 6rem;
+    }
+    .sidebar { 
+        border-right: none; 
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+        padding-right: 0; 
+        padding-bottom: 3rem; 
+    }
+    .couple-names { font-size: 3.5rem; }
+    .photo-grid { grid-template-columns: 1fr; }
+}
